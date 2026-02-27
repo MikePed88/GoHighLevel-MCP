@@ -134,7 +134,7 @@ class GHLMCPHttpServer {
             allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
             credentials: true
         }));
-        this.app.use(express.json());
+        // express.json() removed to allow SDK to handle raw streams for /messages
         this.app.use((req, res, next) => {
             console.log(`[HTTP] ${req.method} ${req.path} - ${new Date().toISOString()}`);
             next();
