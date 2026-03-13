@@ -1487,7 +1487,8 @@ export interface MCPGetEmailTemplatesParams {
 
 export interface MCPUpdateEmailTemplateParams {
   templateId: string;
-  html: string;
+  title?: string;
+  html?: string;
   isPlainText?: boolean;
   previewText?: string;
   updated_by?: string;

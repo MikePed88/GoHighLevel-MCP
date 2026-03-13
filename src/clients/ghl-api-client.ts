@@ -2174,12 +2174,19 @@ export class GHLApiClient {
   async createEmailTemplate(params: MCPCreateEmailTemplateParams): Promise<GHLApiResponse<any>> {
     try {
       const { updated_by, isPlainText, ...rest } = params;
-      const response: AxiosResponse<any> = await this.axiosInstance.post('/emails/builder', {
+
+      const body: any = {
         locationId: this.config.locationId,
-        type: isPlainText ? 'text' : 'html',
         ...rest,
-        updatedBy: updated_by || ''
-      });
+        updatedBy: updated_by || '',
+        type: 'html',
+      };
+
+      if (isPlainText) {
+        body.isPlainText = true;
+      }
+
+      const response: AxiosResponse<any> = await this.axiosInstance.post('/emails/builder', body);
       return this.wrapResponse(response.data);
     } catch (error) {
       throw this.handleApiError(error as AxiosError<GHLErrorResponse>);
@@ -2203,13 +2210,19 @@ export class GHLApiClient {
   async updateEmailTemplate(params: MCPUpdateEmailTemplateParams): Promise<GHLApiResponse<any>> {
     try {
       const { templateId, updated_by, isPlainText, ...data } = params;
-      const response: AxiosResponse<any> = await this.axiosInstance.post('/emails/builder/data', {
+
+      const body: any = {
         locationId: this.config.locationId,
-        templateId,
-        ...data,
         updatedBy: updated_by || '',
-        editorType: isPlainText ? 'text' : 'html'
-      });
+        ...(data.title !== undefined && { title: data.title }),
+        ...(data.previewText !== undefined && { previewText: data.previewText }),
+        ...(data.html !== undefined && { editorType: 'html', editorContent: data.html }),
+      };
+
+      const response: AxiosResponse<any> = await this.axiosInstance.patch(
+        `/emails/builder/${templateId}`,
+        body
+      );
       return this.wrapResponse(response.data);
     } catch (error) {
       throw this.handleApiError(error as AxiosError<GHLErrorResponse>);
