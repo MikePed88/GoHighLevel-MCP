@@ -2173,10 +2173,10 @@ export class GHLApiClient {
 
   async createEmailTemplate(params: MCPCreateEmailTemplateParams): Promise<GHLApiResponse<any>> {
     try {
-      const { updated_by, ...rest } = params;
+      const { updated_by, isPlainText, ...rest } = params;
       const response: AxiosResponse<any> = await this.axiosInstance.post('/emails/builder', {
         locationId: this.config.locationId,
-        type: 'html',
+        type: isPlainText ? 'text' : 'html',
         ...rest,
         updatedBy: updated_by || ''
       });
@@ -2202,13 +2202,13 @@ export class GHLApiClient {
 
   async updateEmailTemplate(params: MCPUpdateEmailTemplateParams): Promise<GHLApiResponse<any>> {
     try {
-      const { templateId, updated_by, ...data } = params;
+      const { templateId, updated_by, isPlainText, ...data } = params;
       const response: AxiosResponse<any> = await this.axiosInstance.post('/emails/builder/data', {
         locationId: this.config.locationId,
         templateId,
         ...data,
         updatedBy: updated_by || '',
-        editorType: 'html'
+        editorType: isPlainText ? 'text' : 'html'
       });
       return this.wrapResponse(response.data);
     } catch (error) {

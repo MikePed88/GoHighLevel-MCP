@@ -110,7 +110,12 @@ export class EmailTools {
             },
             html: {
               type: 'string',
-              description: 'The updated HTML content of the template.'
+              description: 'The updated content of the template (HTML or plain text).'
+            },
+            isPlainText: {
+              type: 'boolean',
+              description: 'Whether the template is plain text. Defaults to false (HTML).',
+              default: false
             },
             previewText: {
               type: 'string',
