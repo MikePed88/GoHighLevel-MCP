@@ -1477,6 +1477,7 @@ export interface MCPCreateEmailTemplateParams {
   title: string;
   html: string;
   isPlainText?: boolean;
+  updated_by?: string;
 }
 
 export interface MCPGetEmailTemplatesParams {
@@ -1488,6 +1489,7 @@ export interface MCPUpdateEmailTemplateParams {
   templateId: string;
   html: string;
   previewText?: string;
+  updated_by?: string;
 }
 
 export interface MCPDeleteEmailTemplateParams {
