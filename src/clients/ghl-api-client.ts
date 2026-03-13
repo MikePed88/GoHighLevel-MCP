@@ -2203,13 +2203,19 @@ export class GHLApiClient {
   async updateEmailTemplate(params: MCPUpdateEmailTemplateParams): Promise<GHLApiResponse<any>> {
     try {
       const { templateId, updated_by, isPlainText, ...data } = params;
-      const response: AxiosResponse<any> = await this.axiosInstance.post('/emails/builder/data', {
+
+      const body: any = {
         locationId: this.config.locationId,
-        templateId,
-        ...data,
         updatedBy: updated_by || '',
-        editorType: isPlainText ? 'text' : 'html'
-      });
+        previewText: data.previewText,
+        editorType: 'html',
+        editorContent: data.html,
+      };
+
+      const response: AxiosResponse<any> = await this.axiosInstance.patch(
+        `/emails/builder/${templateId}`,
+        body
+      );
       return this.wrapResponse(response.data);
     } catch (error) {
       throw this.handleApiError(error as AxiosError<GHLErrorResponse>);
