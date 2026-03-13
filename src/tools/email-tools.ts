@@ -70,6 +70,10 @@ export class EmailTools {
               type: 'boolean',
               description: 'Whether the template is plain text.',
               default: false
+            },
+            updated_by: {
+              type: 'string',
+              description: 'Identifier of the user or system updating the template.'
             }
           },
           required: ['title', 'html']
@@ -111,6 +115,10 @@ export class EmailTools {
             previewText: {
               type: 'string',
               description: 'The updated preview text for the template.'
+            },
+            updated_by: {
+              type: 'string',
+              description: 'Identifier of the user or system updating the template.'
             }
           },
           required: ['templateId', 'html']
