@@ -1,0 +1,44 @@
+# Exported from Render on 2026-04-02T03:15:48Z
+version: "1"
+services:
+- type: web
+  name: GoHighLevel-MCP
+  runtime: node
+  repo: https://github.com/MikePed88/GoHighLevel-MCP
+  plan: free
+  envVars:
+  - key: GHL_API_KEY
+    sync: false
+  - key: MCP_AUTH_TOKEN
+    sync: false
+  - key: NODE_ENV
+    sync: false
+  - key: GHL_LOCATION_ID
+    sync: false
+  - key: GHL_BASE_URL
+    sync: false
+  region: oregon
+  buildCommand: npm install --include=dev && npm run build
+  startCommand: npm start
+  autoDeployTrigger: commit
+
+- type: web
+  name: GoHighLevel-MCP-Kaizen
+  runtime: node
+  repo: https://github.com/MikePed88/GoHighLevel-MCP
+  plan: free
+  envVars:
+  - key: GHL_API_KEY
+    sync: false
+  - key: MCP_AUTH_TOKEN
+    sync: false
+  - key: NODE_ENV
+    sync: false
+  - key: GHL_LOCATION_ID
+    sync: false
+  - key: GHL_BASE_URL
+    sync: false
+  region: oregon
+  buildCommand: npm install --include=dev && npm run build
+  startCommand: npm start
+  autoDeployTrigger: commit
