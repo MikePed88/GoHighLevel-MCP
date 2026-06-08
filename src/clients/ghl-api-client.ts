@@ -2968,7 +2968,7 @@ export class GHLApiClient {
   async searchSocialPosts(searchData: GHLSearchPostsRequest): Promise<GHLApiResponse<GHLSearchPostsResponse>> {
     try {
       const locationId = this.config.locationId;
-      const response: AxiosResponse<GHLSearchPostsResponse> = await this.axiosInstance.post(
+      const response: AxiosResponse<{ results: GHLSearchPostsResponse }> = await this.axiosInstance.post(
         `/social-media-posting/${locationId}/posts/list`,
         searchData
       );
@@ -3064,7 +3064,7 @@ export class GHLApiClient {
   async getSocialAccounts(): Promise<GHLApiResponse<GHLGetAccountsResponse>> {
     try {
       const locationId = this.config.locationId;
-      const response: AxiosResponse<GHLGetAccountsResponse> = await this.axiosInstance.get(
+      const response: AxiosResponse<{ results: GHLGetAccountsResponse }> = await this.axiosInstance.get(
         `/social-media-posting/${locationId}/accounts`
       );
       return this.wrapResponse(response.data.results);
