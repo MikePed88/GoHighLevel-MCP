@@ -2972,7 +2972,7 @@ export class GHLApiClient {
         `/social-media-posting/${locationId}/posts/list`,
         searchData
       );
-      return this.wrapResponse(response.data);
+      return this.wrapResponse(response.data.results);
     } catch (error) {
       throw error;
     }
@@ -3067,7 +3067,7 @@ export class GHLApiClient {
       const response: AxiosResponse<GHLGetAccountsResponse> = await this.axiosInstance.get(
         `/social-media-posting/${locationId}/accounts`
       );
-      return this.wrapResponse(response.data);
+      return this.wrapResponse(response.data.results);
     } catch (error) {
       throw error;
     }
